@@ -8,7 +8,7 @@ Better Robustness by More Coverage: Adversarial Training with Mixup Augmentation
 
 ## Dependencies 
 
-I conducted all experiments under Torch==1.4.0, Transformers==2.3.0. You can see a complete list of dependencies in `requirements.txt`, although you don't have to install all of them as most of them are unnecessary for this codebase.
+I conducted all experiments under Paddle-gup==2.6.2.
 
 ## Data
 
@@ -16,7 +16,7 @@ We provide the exact data that we used in our experiments for easier reproductio
 
 ## Running 
 
-I have included examples of how to run model training with MixADA as well as how to evaluate the models under adversarial attacks in `run_job.sh` and `run_job2.sh`. However, you need to modify the scripts to fill in your dataset and pretrained model checkpoint paths.
+I have included examples of how to run model training with MixADA as well as how to evaluate the models under adversarial attacks in `run_job.sh`. However, you need to modify the scripts to fill in your dataset and pretrained model checkpoint paths.
 
 ## Reference
 
