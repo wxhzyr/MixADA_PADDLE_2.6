@@ -10,14 +10,14 @@ MODEL_PATH=roberta-base
 # ALPHA=0.4
 EPOCHS=5
 
-# OUTPUT_PATH=/data/gaojingkai/clsi/bert-imdb-iterADASmix-textfooler
+OUTPUT_PATH=rbt-sst-tmixada-pwws-iterative
 SEQLEN=128
 
 # mix_option: 0: no mix, 1: TMix, 2: SimMix
 
 
 
-
+echo "Running SimMix with TMix and Textfooler on SST-2 dataset"
 ## BERT-TMixADA-PWWS
 python run_simMix.py \
 --model_type roberta \
@@ -28,7 +28,7 @@ python run_simMix.py \
 --task_name sst-2 \
 --data_dir ${DATA_PATH} \
 --model_name_or_path ${MODEL_PATH} \
---output_dir /data/gaojingkai/clsi/rbt-sst-tmixada-pwws-iterative \
+--output_dir ${OUTPUT_PATH} \
 --max_seq_length $SEQLEN \
 --mix_layers_set 7 9 12 \
 --alpha 2.0 \
@@ -49,18 +49,20 @@ python run_simMix.py \
 --overwrite_output_dir \
 --overwrite_cache \
 --do_train \
---fp16
+--do_eval \
+# --fp16
 # --second_data_dir $SECOND_DATA_PATH \
 # --third_data_dir $THIRD_DATA_PATH \
 
 
+echo "Evaluating the model with PWWS attacker"
 python attackEval.py  \
---model_name_or_path /data/gaojingkai/clsi/rbt-sst-tmixada-pwws-iterative \
---model_type roberta \
---attacker pwws \
---data_dir ${DATA_PATH}/test.tsv \
---max_seq_len $SEQLEN \
---save_dir ./results/1.log
+    --model_name_or_path ${OUTPUT_PATH}/best-ep1  \
+    --model_type roberta \
+    --attacker pwws \
+    --data_dir ${DATA_PATH}/test.tsv \
+    --max_seq_len $SEQLEN \
+    --save_dir ./results/1.log
 
 ## BERT-TMixADA-Textfooler
 # python run_simMix.py \
